@@ -22,3 +22,5 @@ public class Main extends Application{
         launch();
     }
 }
+
+// Copyright 2023. Benedictus Park(benedictuspark1220@gmail.com) all rights reserved.

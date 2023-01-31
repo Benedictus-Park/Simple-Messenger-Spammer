@@ -30,3 +30,5 @@ while True:
     pygui.press("enter")
 
     time.sleep(frequency)
+
+# Copyright 2023. Benedictus Park(benedictuspark1220@gmail.com) all rights reserved.
