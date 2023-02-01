@@ -59,10 +59,10 @@
             <font>
                 <Font name="Malgun Gothic" size="12.0" />
             </font></TextField>
-      <Label layoutX="44.0" layoutY="318.0" text="Copyright 2023. Benedictus Park(benedictuspark1220@gmail.com) all rights reserved.">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
+        <Label layoutX="44.0" layoutY="318.0" text="Copyright 2023. Benedictus Park(benedictuspark1220@gmail.com) all rights reserved.">
+            <font>
+                <Font size="10.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

@@ -1,18 +1,12 @@
-package java.simplespammer;
-
-import java.io.*;
+package idv.tools.simplespammer;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.*;
 import javafx.scene.robot.Robot;
+import javafx.application.Platform;
 
 public class Controller {
-    // 메인 팬
-    @FXML
-    private AnchorPane root;
-
     // 도배할 내용
     @FXML
     private TextArea txtArea;
@@ -31,47 +25,21 @@ public class Controller {
     @FXML
     private TextField txtTimerMin;
 
-    // 하나인 버튼을 믿나이다.
-    @FXML
-    private Button btnExplosion;
-
+    String enableShowMousePosition = null;
     Robot robot = new Robot();
-    Process python = null;
 
     public void ShowMousePosition(KeyEvent event) {
-        String[] out = null;
-        ProcessBuilder pb = null;
-        BufferedReader rdr = null;
-
-        if (event.getCode() == KeyCode.CONTROL) {
-            pb = new ProcessBuilder(System.getProperty("user.dir") + "\\position.exe");
-
-            try{
-                python = pb.start();
-                python.waitFor();
-
-                rdr = new BufferedReader(new InputStreamReader(python.getInputStream()));
-                out = rdr.readLine().split("-");
-                rdr.close();
-            }
-            catch(Exception e){}
-            finally {
-                python.destroy();
-                python = null;
-            }
-
-            txtTgtXPos.setText(out[0]);
-            txtTgtYPos.setText(out[1]);
+        if (event.getCode() == KeyCode.CONTROL && enableShowMousePosition == null) {
+            txtTgtXPos.setText(Double.toString(robot.getMouseX()));
+            txtTgtYPos.setText(Double.toString(robot.getMouseY()));
         }
     }
 
     public void Explosion() {
-        int tgtX, tgtY;
-        int frequencyMil;
         int timerMinMil;
-        boolean isFirst = true;
+        int frequencyMil;
+        double tgtX, tgtY;
 
-        ProcessBuilder pb;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         String txtAreaContent = txtArea.getText();
@@ -82,15 +50,6 @@ public class Controller {
 
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
-
-
-        if (python != null) {
-            if (python.isAlive()) {
-                alert.setContentText("아직 매크로 프로세스 종료 안 됐음.");
-                alert.show();
-                return;
-            }
-        }
 
         if (txtAreaContent.isBlank()) {
             alert.setContentText("님 도배할 내용 입력 안 함?");
@@ -107,8 +66,8 @@ public class Controller {
         }
 
         try {
-            tgtX = Integer.parseInt(unprocessedXPos);
-            tgtY = Integer.parseInt(unprocessedYPos);
+            tgtX = Double.parseDouble(unprocessedXPos);
+            tgtY = Double.parseDouble(unprocessedYPos);
 
             frequencyMil = Integer.parseInt(unprocessedFrequency);
             timerMinMil = 0;
@@ -124,13 +83,7 @@ public class Controller {
         content.putString(txtAreaContent);
         clipboard.setContent(content);
 
-        try {
-            pb = new ProcessBuilder(System.getProperty("user.dir") + "\\robot.exe", Integer.toString(tgtX), Integer.toString(tgtY), "3000", Integer.toString(frequencyMil), Integer.toString(timerMinMil));
-            python = pb.start();
-        } catch (IOException e) {
-            alert.setContentText(e.toString());
-            alert.show();
-        }
+        Platform.runLater(new MacroRobot(robot, (int)tgtX, (int)tgtY, timerMinMil, frequencyMil, enableShowMousePosition));
     }
 }
 
