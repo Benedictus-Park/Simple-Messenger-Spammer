@@ -46,7 +46,7 @@ JLink로 뽑아낸 경우, 실행할 때에는 image/bin에서 프로그램명.b
 ___
 ## 3. 프로그램 다운로드 & 사용법
 Windows 버전입니다. 다운로드는 여기서 받으십시오. 
-> https://catholicackr-my.sharepoint.com/:u:/g/personal/benedictuspark1220_catholic_ac_kr/Ea63Tpd-M8xGiz-7D-NHgc0Bno6-u7ZSLevPU9HznxiP9w?e=sCA64q
+> https://catholicackr-my.sharepoint.com/:u:/g/personal/benedictuspark1220_catholic_ac_kr/Ea63Tpd-M8xGiz-7D-NHgc0BvGTPQVV-HzuNY26MMJVeZQ
 
 사용법은 아래 영상을 참조하시면 됩니다.  
 > https://youtu.be/6o4lOMnRis4
